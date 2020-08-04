@@ -1,3 +1,33 @@
+<?php
+
+function _e($string)
+{
+    return htmlentities($string, ENT_QUOTES, 'UTF-8', false);
+}
+
+$whitelist = ['1', '2', '3', '4', '5'];
+
+$errors = [];
+$fields = [];
+$points = null;
+$name = '';
+
+if (!empty($_POST)) {
+
+    // Perform whitelistening
+    foreach ($whitelist as $key) {
+        $fields[$key] = $_POST[$key];
+    }
+
+    // Validate field data
+    foreach ($fields as $field => $data) {
+        if (empty($data)) {
+            $errors[] = 'Fyll i svar för fråga ' . $field;
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -25,10 +55,6 @@
                 <?php if (!empty($errors)) : ?>
                     <div class="errors">
                         <p class="bg-danger"><?php echo implode('</p><p class="bg-danger">', $errors); ?></p>
-                    </div>
-                <?php elseif ($sent) : ?>
-                    <div class="success">
-                        <p class="bg-success">Your message was sent. We'll be in touch.</p>
                     </div>
                 <?php endif; ?>
                 <form role="form" method="post" action="result.php">
@@ -86,7 +112,6 @@
                     <div class="form-group">
                         <input id="submit" name="submit" type="submit" value="Skicka" class="btn btn-primary">
                     </div>
-                    <?php $name = $fields['name']; ?>
                 </form>
             </div>
         </div>
