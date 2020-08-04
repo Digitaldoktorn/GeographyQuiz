@@ -5,7 +5,7 @@ function _e($string)
     return htmlentities($string, ENT_QUOTES, 'UTF-8', false);
 }
 
-$whitelist = ['1', '2', '3', '4', '5'];
+$whitelist = ['name', '1', '2', '3', '4', '5'];
 
 $errors = [];
 $fields = [];
@@ -101,7 +101,7 @@ if (!empty($_POST)) {
                         <?php if ($_POST['5'] == 'Canberra') {
                             $points++;
                         } else {
-                            $points;
+                            --$points;
                         } ?>
                     </div>
 
@@ -112,6 +112,7 @@ if (!empty($_POST)) {
                     <div class="form-group">
                         <input id="submit" name="submit" type="submit" value="Skicka" class="btn btn-primary">
                     </div>
+                    <?php $name = $fields['name']; ?>
                 </form>
             </div>
         </div>
